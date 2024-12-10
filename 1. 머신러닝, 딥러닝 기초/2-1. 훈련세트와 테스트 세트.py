@@ -1,5 +1,7 @@
 from common import fish_data, fish_target
-from common import kn, np
+import matplotlib.pyplot as plt
+from sklearn.neighbors import KNeighborsClassifier
+import numpy as np
 
 # 지도 학습 = 훈련을 위한 훈련 데이터(데이터(입력) + 정답(타깃))가 필요 => 정답을 맞히는 것을 학습
 # 비지도 학습 = 타깃 없이 입력 데이터만 사용 => 정답을 맞히진 않지만, 데이터 파악 및 변형에 도움을 줌
@@ -17,6 +19,7 @@ train_target = fish_target[:35]
 test_input = fish_data[35:]
 test_target = fish_target[35:]
 
+kn = KNeighborsClassifier()
 kn = kn.fit(train_input, train_target)
 # print(kn.score(test_input, test_target)) # 샘플링 편향 때문에 정확도가 0이 나오게 된다.
 
@@ -37,3 +40,12 @@ test_input = input_arr[index[35:]]
 test_target = target_arr[index[35:]]
 
 # 잘 섞였는 지 확인해보자
+plt.scatter(train_input[:, 0], train_input[:, 1])
+plt.scatter(test_input[:, 0], test_input[:, 1])
+plt.xlabel('length')
+plt.ylabel('width')
+plt.show()
+
+kn = kn.fit(train_input, train_target)
+print(kn.score(test_input, test_target)) # 정확도 1로 성공!
+

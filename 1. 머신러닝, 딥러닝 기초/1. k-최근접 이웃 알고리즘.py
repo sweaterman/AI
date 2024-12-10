@@ -1,5 +1,7 @@
 from common import bream_length, bream_weight, smelt_length, smelt_weight
-from common import plt, kn
+import matplotlib.pyplot as plt
+from sklearn.neighbors import KNeighborsClassifier
+kn = KNeighborsClassifier()
 
 # 산점도: x, y축으로 이뤄진 좌표계에 두 변수 (x, y)의 관계를 표현하는 방법
 plt.scatter(bream_length, bream_weight)
@@ -30,7 +32,6 @@ kn.fit(fish_data, fish_target)
 # print(kn._y) # fish_target을 전부 갖고 있음.
 
 # KNeighborsClassifier 클래스의 기본값은 5다. 가까운 5개의 데이터를 참고한다는 뜻.
-from sklearn.neighbors import KNeighborsClassifier
 kn49 = KNeighborsClassifier(n_neighbors=49)
 kn49.fit(fish_data, fish_target)
 print(kn49.score(fish_data, fish_target)) # 평가 결과 => 0.7142857142857143
