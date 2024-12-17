@@ -30,3 +30,13 @@ print(knr.score(test_input, test_target)) # 점수는 0.9928094061010639
 test_prediction = knr.predict(test_input) # 테스트 세트에 대한 예측 만들기
 mae = mean_absolute_error(test_target, test_prediction)
 print(mae) # 결과: 19.157142857142862 => 예측이 평균적으로 19g 정도 타깃값과 다르다.
+
+# 앞에서 훈련한 모델을 사용해 "훈련 세트"의 R^2 점수를 확인해보자.
+print(knr.score(train_input, train_target)) # 점수는 0.9698823289099255
+
+# 훈련 세트 점수 > 테스트 세트 점수 : 과대 적합 => 모델을 덜 복잡하게 만들어야 한다.
+# 훈련 세트 점수 < 테스트 세트 점수 : 과소 적합 => 모델을 더 복잡하게 만들어야 한다.
+knr.n_neighbors = 3
+knr.fit(train_input, train_target)
+print(knr.score(train_input, train_target)) # 점수는 0.9804899950518966
+
